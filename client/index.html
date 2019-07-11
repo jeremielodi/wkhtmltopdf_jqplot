@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>jqplot</title>
+
+  <script type="text/javascript" src="./jquery.min.js"></script>
+  <script type="text/javascript" src="./jquery.jqplot.min.js"></script>
+
+  <script type="text/javascript" src="./plugins/jqplot.logAxisRenderer.js"></script>
+  <script type="text/javascript" src="./plugins/jqplot.canvasTextRenderer.js"></script>
+  <script type="text/javascript" src="./plugins/jqplot.canvasAxisLabelRenderer.js"></script>
+  <script type="text/javascript" src="./plugins/jqplot.canvasAxisTickRenderer.js"></script>
+  <script type="text/javascript" src="./plugins/jqplot.dateAxisRenderer.js"></script>
+  <script type="text/javascript" src="./plugins/jqplot.categoryAxisRenderer.js"></script>
+  <script type="text/javascript" src="./plugins/jqplot.barRenderer.js"></script>
+  <script type="text/javascript" src="./plugins/jqplot.pieRenderer.js"></script>
+  <script type="text/javascript" src="./plugins/jqplot.pointLabels.js"></script>
+  <script src="./html2canvas.js"></script>
+  <link rel="stylesheet" type="text/css" href="./jquery.jqplot.css" />
+
+</head>
+
+<body>
+  <h4><a href="pdf" target="_blank">Voir le pdf</a></h4>
+  <div id="chart1" style="width: 1400px"></div>
+  <div id="chart3" style="width: 1400px"></div>
+  <div id="chart4" style="width: 100%"></div>
+
+  <script>
+    $(document).ready(function () {
+
+      data1 = [[['Apples', 210], ['Oranges', 111], ['Bananas', 74], ['Grapes', 72], ['Pears', 49]]];
+      toolTip1 = ['Red Delicious Apples', 'Parson Brown Oranges', 'Cavendish Bananas', 'Albaranzeuli Nero Grapes', 'Green Anjou Pears'];
+
+      var plot1 = jQuery.jqplot('chart1',
+        data1,
+        {
+          title: ' ',
+          seriesDefaults: {
+            shadow: false,
+            renderer: jQuery.jqplot.PieRenderer,
+            rendererOptions: { padding: 2, sliceMargin: 2, showDataLabels: true }
+          },
+          legend: {
+            show: true,
+            location: 'e',
+            renderer: $.jqplot.EnhancedPieLegendRenderer,
+            rendererOptions: {
+              numberColumns: 1,
+              toolTips: toolTip1
+            }
+          },
+        }
+      );
+    });
+
+
+    function drawChart() {
+      var line3 = [['1er Secondaire', 7], ['2eme Secondaire', 9],
+      ['3eme Scientifique', 15], ['8 Track Control Module', 12],
+      ['4eme Social', 3],
+      ['Transcender/Spice Rack', 6], ['6em bio', 18]];
+      $('#chart3').html('');
+      var plot3 = $.jqplot('chart3', [line3], {
+        title: 'Statistique de paiement de frais scolaire',
+      
+        cursor: {
+          show: true,
+          zoom: true,
+          looseZoom: true,
+          showTooltip: false
+        },
+        highlighter: {
+          show: true,
+          sizeAdjust: 7.5
+        },
+        seriesColors: ['#85802b', '#00749F', '#73C774', '#C7754C', '#17BDB8'],
+        seriesDefaults: {
+          renderer: $.jqplot.BarRenderer,
+          pointLabels: { show: true },
+          rendererOptions: {
+            // Set varyBarColor to tru to use the custom colors on the bars.
+            varyBarColor: true,
+            showDataLabels: true
+          }
+        },
+        axes: {
+          xaxis: {
+            renderer: $.jqplot.CategoryAxisRenderer,
+            label: 'Warranty Concern',
+            labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+            tickRenderer: $.jqplot.CanvasAxisTickRenderer,
+            tickOptions: {
+              angle: -30,
+              fontFamily: 'Courier New',
+              fontSize: '9pt',
+              fontWeight: 'bold'
+            }
+
+          },
+          yaxis: {
+            label: 'Occurance',
+            labelRenderer: $.jqplot.CanvasAxisLabelRenderer
+          }
+        }, legend: {
+          show: true,
+          placement: 'outsideGrid'
+        }
+      });
+
+    }
+    $(document).ready(drawChart);
+  </script>
+</body>
+
+</html>
